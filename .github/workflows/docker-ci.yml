@@ -8,8 +8,8 @@ permissions:
 
 env:
   IMAGE_NAME: aws-docker-lab
-  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-  DOCKERHUB_TOKEN_v2: ${{ secrets.DOCKERHUB_TOKEN_v2 }}
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_TOKEN_V2: ${{ secrets.DOCKER_TOKEN_V2 }}
 
 jobs:
   build-and-push:
@@ -38,17 +38,17 @@ jobs:
         run: docker image inspect "${IMAGE_NAME}:${GITHUB_SHA}"
 
       - name: Log in to Docker Hub
-        if: github.ref == 'refs/heads/main' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN_v2 != ''
+        if: github.ref == 'refs/heads/main' && env.DOCKER_USERNAME != '' && env.DOCKER_TOKEN_V2 != ''
         uses: docker/login-action@v3
         with:
-          username: ${{ env.DOCKERHUB_USERNAME }}
-          password: ${{ env.DOCKERHUB_TOKEN_v2 }}
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_TOKEN_V2 }}
 
       - name: Tag and push image to Docker Hub
-        if: github.ref == 'refs/heads/main' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN_v2 != ''
+        if: github.ref == 'refs/heads/main' && env.DOCKER_USERNAME != '' && env.DOCKER_TOKEN_V2 != ''
         shell: bash
         run: |
-          REMOTE_IMAGE="${DOCKERHUB_USERNAME}/${IMAGE_NAME}"
+          REMOTE_IMAGE="${DOCKER_USERNAME}/${IMAGE_NAME}"
 
           docker tag "${IMAGE_NAME}:${GITHUB_SHA}" "${REMOTE_IMAGE}:${GITHUB_SHA}"
           docker tag "${IMAGE_NAME}:${GITHUB_SHA}" "${REMOTE_IMAGE}:latest"
@@ -60,5 +60,5 @@ jobs:
           echo "Published: ${REMOTE_IMAGE}:latest"
 
       - name: Docker Hub push skipped
-        if: github.ref == 'refs/heads/main' && (env.DOCKERHUB_USERNAME == '' || env.DOCKERHUB_TOKEN_v2 == '')
-        run: echo "Docker image was built successfully. Add DOCKERHUB_USERNAME and DOCKERHUB_TOKEN_v2 secrets to enable publishing."
+        if: github.ref == 'refs/heads/main' && (env.DOCKER_USERNAME == '' || env.DOCKER_TOKEN_V2 == '')
+        run: echo "Docker image was built successfully. Add DOCKER_USERNAME and DOCKER_TOKEN_V2 secrets to enable publishing."
