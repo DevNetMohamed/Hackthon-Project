@@ -22,6 +22,7 @@ resource "aws_instance" "app_server" {
   key_name                    = var.key_name
   associate_public_ip_address = true
   user_data                   = file("userdata.sh")
+  
   root_block_device {
     volume_size           = var.root_volume_size
     volume_type           = "gp3"
