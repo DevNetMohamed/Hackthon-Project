@@ -9,7 +9,7 @@ permissions:
 env:
   IMAGE_NAME: aws-docker-lab
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+  DOCKERHUB_TOKEN_v2: ${{ secrets.DOCKERHUB_TOKEN_v2 }}
 
 jobs:
   build-and-push:
@@ -38,14 +38,14 @@ jobs:
         run: docker image inspect "${IMAGE_NAME}:${GITHUB_SHA}"
 
       - name: Log in to Docker Hub
-        if: github.ref == 'refs/heads/main' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
+        if: github.ref == 'refs/heads/main' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN_v2 != ''
         uses: docker/login-action@v3
         with:
           username: ${{ env.DOCKERHUB_USERNAME }}
-          password: ${{ env.DOCKERHUB_TOKEN }}
+          password: ${{ env.DOCKERHUB_TOKEN_v2 }}
 
       - name: Tag and push image to Docker Hub
-        if: github.ref == 'refs/heads/main' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
+        if: github.ref == 'refs/heads/main' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN_v2 != ''
         shell: bash
         run: |
           REMOTE_IMAGE="${DOCKERHUB_USERNAME}/${IMAGE_NAME}"
@@ -60,5 +60,5 @@ jobs:
           echo "Published: ${REMOTE_IMAGE}:latest"
 
       - name: Docker Hub push skipped
-        if: github.ref == 'refs/heads/main' && (env.DOCKERHUB_USERNAME == '' || env.DOCKERHUB_TOKEN == '')
-        run: echo "Docker image was built successfully. Add DOCKERHUB_USERNAME and DOCKERHUB_TOKEN secrets to enable publishing."
+        if: github.ref == 'refs/heads/main' && (env.DOCKERHUB_USERNAME == '' || env.DOCKERHUB_TOKEN_v2 == '')
+        run: echo "Docker image was built successfully. Add DOCKERHUB_USERNAME and DOCKERHUB_TOKEN_v2 secrets to enable publishing."
