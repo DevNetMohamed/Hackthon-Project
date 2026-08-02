@@ -1,0 +1,14 @@
+{
+  "name": "aws-docker-lab-part3",
+  "version": "1.0.0",
+  "description": "A simple HTML, CSS, and JavaScript web application containerized with Docker.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

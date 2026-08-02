@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AWS Docker Deployment Lab web application">
+  <title>AWS Docker Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="lab-card" aria-labelledby="lab-title">
+      <div class="docker-mark" aria-hidden="true">
+        <span>▦</span>
+      </div>
+
+      <p class="eyebrow">APPLICATION CONTAINERIZATION</p>
+      <h1 id="lab-title">AWS Docker Lab</h1>
+      <p class="subtitle">A simple web application running with Node.js and Docker.</p>
+
+      <div class="details-grid">
+        <article class="detail-card">
+          <span class="label">Students Name</span>
+          <strong>Yousef Ismail</strong>
+<strong>Mazen Amir</strong>
+<strong>Mohamed Adel</strong>
+        </article>
+
+        <article class="detail-card">
+          <span class="label">Current Date</span>
+          <strong id="current-date">Loading date...</strong>
+        </article>
+      </div>
+
+      <div class="status-row">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="status-text">Application is running successfully</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
