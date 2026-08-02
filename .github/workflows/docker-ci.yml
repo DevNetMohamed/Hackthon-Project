@@ -26,8 +26,8 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./aws-docker-lab-part3
+          file: ./aws-docker-lab-part3/Dockerfile
           push: false
           load: true
           tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
