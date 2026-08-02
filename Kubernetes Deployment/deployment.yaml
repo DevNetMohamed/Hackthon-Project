@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: web-app
-        image: your-dockerhub-username/web-app:latest
+        image: mohamedadel204/aws-docker-lab:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
